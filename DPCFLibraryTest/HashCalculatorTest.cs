@@ -1,4 +1,4 @@
-﻿using System.IO;
+﻿using System.Text;
 using DynaStudios.DPCFLib.Util;
 using NUnit.Framework;
 
@@ -18,26 +18,11 @@ namespace DPCFLibraryTest
         [Test]
         public void CalculateMd5ChecksumTest()
         {
-            byte[] testFile = LoadTestfileIntoArray();
-            Assert.IsNotEmpty(testFile);
+            byte[] testString = Encoding.UTF8.GetBytes("Teststring");
+            Assert.IsNotEmpty(testString);
 
-            string hash = _hashCalculator.Calculate(testFile);
-            Assert.IsTrue(hash.Equals("02C1E93316160F9B6AD6B7CC115186C1"));
+            string hash = _hashCalculator.Calculate(testString);
+            Assert.IsTrue(hash.Equals("0DE471A9016AD61D89970490DA698AC3"));
         }
-
-        #region Methods to LoadFromFile Testfiles
-
-        private byte[] LoadTestfileIntoArray()
-        {
-            byte[] result;
-            using (var fs = new FileStream(Path.Combine("TestFiles", "Sample.txt"), FileMode.Open, FileAccess.Read))
-            {
-                result = new byte[fs.Length];
-                fs.Read(result, 0, result.Length);
-            }
-            return result;
-        }
-
-        #endregion
     }
 }
