@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DPCFLibrary", "DPCFLibrary\DPCFLibrary.csproj", "{6DE4033C-98EF-461B-B478-C6394F3C364C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DPCFLibraryTest", "DPCFLibraryTest\DPCFLibraryTest.csproj", "{48D1A63B-1612-4E7A-BBCF-0DA31F44FA1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBCF.Builder.WinForms", "DBCF.Builder.WinForms\DBCF.Builder.WinForms.csproj", "{785E2804-EEFA-441A-A5F1-3D4B20B15E9F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6DE4033C-98EF-461B-B478-C6394F3C364C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DE4033C-98EF-461B-B478-C6394F3C364C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DE4033C-98EF-461B-B478-C6394F3C364C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DE4033C-98EF-461B-B478-C6394F3C364C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48D1A63B-1612-4E7A-BBCF-0DA31F44FA1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48D1A63B-1612-4E7A-BBCF-0DA31F44FA1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48D1A63B-1612-4E7A-BBCF-0DA31F44FA1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48D1A63B-1612-4E7A-BBCF-0DA31F44FA1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{785E2804-EEFA-441A-A5F1-3D4B20B15E9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{785E2804-EEFA-441A-A5F1-3D4B20B15E9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{785E2804-EEFA-441A-A5F1-3D4B20B15E9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{785E2804-EEFA-441A-A5F1-3D4B20B15E9F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
