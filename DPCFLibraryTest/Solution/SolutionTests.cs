@@ -100,6 +100,47 @@ namespace DPCFLibraryTest.Solution
         }
 
         [Test]
+        public void AddMultipleFilesByArray()
+        {
+            var description = GetValidSampleSolutionDescription();
+
+            ProjectFile[] files = {
+                new ProjectFile {FileIdentifier = "Test", PhysicalFilepath = "DummyPath"},
+                new ProjectFile {FileIdentifier = "Test2", PhysicalFilepath = "Another Path"},
+            };
+
+            var result = new ProjectSolutionBuilder()
+                .WithSolutionDescription(description)
+                .AddToSolution(files)
+                .Build();
+
+            Assert.NotNull(result);
+            Assert.IsTrue(result.Files.Count == 2);
+        }
+
+        [Test]
+        public void AddMultipleFileByArrayError()
+        {
+            var description = GetValidSampleSolutionDescription();
+
+            ProjectFile[] err = null;
+            Assert.Throws<ArgumentNullException>(
+                () => new ProjectSolutionBuilder().WithSolutionDescription(description).AddToSolution(err).Build());
+
+            err = new ProjectFile[0];
+            Assert.Throws<ArgumentNullException>(
+                () => new ProjectSolutionBuilder().WithSolutionDescription(description).AddToSolution(err).Build());
+
+            ProjectFile[] files = {
+                new ProjectFile {FileIdentifier = "Test", PhysicalFilepath = "DummyPath"},
+                new ProjectFile {FileIdentifier = "Test2"},
+            };
+
+            Assert.Throws<ArgumentNullException>(
+                () => new ProjectSolutionBuilder().WithSolutionDescription(description).AddToSolution(files).Build());
+        }
+
+        [Test]
         public void BuildSolutionAndSerialize()
         {
             var description = GetValidSampleSolutionDescription();

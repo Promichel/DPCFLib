@@ -29,20 +29,34 @@ namespace DynaStudios.DPCFLib.Solutions
             return this;
         }
 
-        public ProjectSolution Build()
-        {
-            return new ProjectSolution(this);
-        }
-
         public ProjectSolutionBuilder AddToSolution(ProjectFile projectFile)
         {
             if (projectFile == null) throw new ArgumentNullException("projectFile");
-            if(string.IsNullOrEmpty(projectFile.PhysicalFilepath)) throw new ArgumentNullException("projectFile", "Filepath is null or empty");
-            if(string.IsNullOrEmpty(projectFile.FileIdentifier)) throw new ArgumentNullException("projectFile", "File Identifier is null or empty");
+            if (string.IsNullOrEmpty(projectFile.PhysicalFilepath))
+                throw new ArgumentNullException("projectFile", "Filepath is null or empty");
+            if (string.IsNullOrEmpty(projectFile.FileIdentifier))
+                throw new ArgumentNullException("projectFile", "File Identifier is null or empty");
 
             Files.Add(projectFile);
 
             return this;
+        }
+
+        public ProjectSolutionBuilder AddToSolution(ProjectFile[] projectFile)
+        {
+            if (projectFile == null || projectFile.Length == 0)
+                throw new ArgumentNullException("projectFile", "Array is null or empty");
+            foreach (var file in projectFile)
+            {
+                AddToSolution(file);
+            }
+
+            return this;
+        }
+
+        public ProjectSolution Build()
+        {
+            return new ProjectSolution(this);
         }
     }
 }
