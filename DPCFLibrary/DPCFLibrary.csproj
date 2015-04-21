@@ -43,6 +43,7 @@
     <Compile Include="Pattern\IBuilder.cs" />
     <Compile Include="Solutions\ProjectSolutionBuilder.cs" />
     <Compile Include="Solutions\ProjectSolution.cs" />
+    <Compile Include="Solutions\ProjectVersion.cs" />
     <Compile Include="Solutions\ReadableSerializer.cs" />
     <Compile Include="Solutions\SolutionDescription.cs" />
     <Compile Include="Util\HashCalculator.cs" />

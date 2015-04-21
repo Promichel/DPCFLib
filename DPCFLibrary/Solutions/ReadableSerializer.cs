@@ -19,6 +19,12 @@ namespace DynaStudios.DPCFLib.Solutions
             return serializer.Deserialize(stream) as T;
         }
 
+        public static T Deserialize(TextReader stream)
+        {
+            var serializer = new XmlSerializer(typeof (T));
+            return serializer.Deserialize(stream) as T;
+        }
+
         public static T LoadFromFile(string filepath)
         {
             T result;

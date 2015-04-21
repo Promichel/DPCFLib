@@ -6,7 +6,7 @@ namespace DynaStudios.DPCFLib.Solutions
     public class SolutionDescription
     {
         public string Name { get; set; }
-        public Version SolutionVersion { get; set; }
-        public string Author { get; set; }
+        public string Author { get; set; }     
+        public ProjectVersion SolutionVersion { get; set; }
     }
 }
