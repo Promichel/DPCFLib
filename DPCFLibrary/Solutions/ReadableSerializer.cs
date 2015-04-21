@@ -25,25 +25,5 @@ namespace DynaStudios.DPCFLib.Solutions
             return serializer.Deserialize(stream) as T;
         }
 
-        public static T LoadFromFile(string filepath)
-        {
-            T result;
-            using (var fs = new FileStream(filepath, FileMode.Open, FileAccess.Read))
-            {
-                result = Deserialize(fs);
-            }
-            return result;
-        }
-
-        public static void SaveToFile(T data, string filepath)
-        {
-            using (var stream = Serialize(data))
-            {
-                using (var fs = new FileStream(filepath, FileMode.Create, FileAccess.Write))
-                {
-                    stream.WriteTo(fs);
-                }
-            }
-        }
     }
 }

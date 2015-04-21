@@ -48,6 +48,8 @@
   <ItemGroup>
     <Compile Include="HashCalculatorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReadableSerializerTests\ReadableSerializerTest.cs" />
+    <Compile Include="ReadableSerializerTests\TestData.cs" />
     <Compile Include="Solution\SolutionTests.cs" />
   </ItemGroup>
   <ItemGroup>

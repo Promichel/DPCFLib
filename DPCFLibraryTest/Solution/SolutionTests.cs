@@ -80,26 +80,6 @@ namespace DPCFLibraryTest.Solution
             ValidateDescription(desO.Description);
         }
 
-        #region Tests for Local Development Testing
-
-        [Test]
-        [Ignore]
-        public void BuildSolutionAndSerializeToFileIntegration()
-        {
-            var description = GetValidSampleSolutionDescription();
-            var result = new ProjectSolutionBuilder().WithSolutionDescription(description).Build();
-            Assert.NotNull(result);
-
-            var filepath = Path.Combine("TestFiles", "test.project");
-            //Assert.IsTrue(!File.Exists(filepath));
-            ReadableSerializer<ProjectSolution>.SaveToFile(result, filepath);
-            //Assert.IsTrue(File.Exists(filepath));
-
-            //File.Delete(filepath);
-        }
-
-        #endregion
-
         #region Test Utils
 
         private SolutionDescription GetValidSampleSolutionDescription()
