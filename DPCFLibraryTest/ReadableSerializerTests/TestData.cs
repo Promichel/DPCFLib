@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Xml.Serialization;
+using System.Runtime.Serialization;
 
 namespace DPCFLibraryTest.ReadableSerializerTests
 {
     [Serializable]
-    [XmlRoot("Test")]
+    [DataContract(Name = "Test")]
     public class TestData
     {
+        [DataMember]
         public string Data { get; set; }
     }
 }

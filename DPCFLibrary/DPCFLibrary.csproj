@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,6 +43,8 @@
     <Compile Include="Format\DPCFFileHeader.cs" />
     <Compile Include="Format\DPCFHashedFileHeader.cs" />
     <Compile Include="Pattern\IBuilder.cs" />
+    <Compile Include="Solutions\FileCompression.cs" />
+    <Compile Include="Solutions\ProjectFile.cs" />
     <Compile Include="Solutions\ProjectSolutionBuilder.cs" />
     <Compile Include="Solutions\ProjectSolution.cs" />
     <Compile Include="Solutions\ProjectVersion.cs" />

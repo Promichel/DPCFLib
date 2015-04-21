@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using System.Xml.Serialization;
+using System.Runtime.Serialization;
 
 namespace DynaStudios.DPCFLib.Solutions
 {
@@ -7,22 +7,17 @@ namespace DynaStudios.DPCFLib.Solutions
     {
         public static MemoryStream Serialize(T data)
         {
-            var serializer = new XmlSerializer(typeof(T));
+            var serializer = new DataContractSerializer(typeof(T));
             var ms = new MemoryStream();
-            serializer.Serialize(ms, data);
+            serializer.WriteObject(ms, data);
+            ms.Seek(0, SeekOrigin.Begin);
             return ms;
         }
 
         public static T Deserialize(Stream stream)
         {
-            var serializer = new XmlSerializer(typeof (T));
-            return serializer.Deserialize(stream) as T;
-        }
-
-        public static T Deserialize(TextReader stream)
-        {
-            var serializer = new XmlSerializer(typeof (T));
-            return serializer.Deserialize(stream) as T;
+            var serializer = new DataContractSerializer(typeof(T));
+            return serializer.ReadObject(stream) as T;
         }
 
     }

@@ -29,15 +29,23 @@ namespace DPCFLibraryTest.ReadableSerializerTests
             }
         }
 
+        #region Development Tests
         [Test]
-        public void DeserializeWithTextReader()
+        [Ignore]
+        public void TestWriteToFile()
         {
-            using (var txtReader = new StringReader("<Test><Data>test</Data></Test>"))
+            var testData = new TestData { Data = "test" };
+            using (var stream = ReadableSerializer<TestData>.Serialize(testData))
             {
-                var result = ReadableSerializer<TestData>.Deserialize(txtReader);
-                Assert.NotNull(result);
-                Assert.IsTrue(result.Data.Equals("test"));
+                stream.Seek(0, SeekOrigin.Begin);
+                using (FileStream fs = new FileStream("test.config", FileMode.Create, FileAccess.Write))
+                {
+                    stream.CopyTo(fs);
+                    fs.Flush();
+                }
             }
         }
+        #endregion
+
     }
 }
