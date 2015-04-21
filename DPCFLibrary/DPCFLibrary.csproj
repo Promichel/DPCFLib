@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Format\DPCFFileHeader.cs" />
+    <Compile Include="Format\DPCFHashedFileHeader.cs" />
     <Compile Include="Pattern\IBuilder.cs" />
     <Compile Include="Solutions\ProjectSolutionBuilder.cs" />
     <Compile Include="Solutions\ProjectSolution.cs" />

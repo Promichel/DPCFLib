@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-
-namespace DynaStudios.DPCFLib.Format
+﻿namespace DynaStudios.DPCFLib.Format
 {
     public struct DPCFFileHeader
     {
@@ -18,16 +16,5 @@ namespace DynaStudios.DPCFLib.Format
 
         public ulong FileCreation;
         public ulong FileChanged;
-    }
-
-    public struct DPCFHashedFileHeader
-    {
-        public uint Identifier;
-        public uint LocationIdentifier;
-        public byte[] FileHash;
-        public short CompressionMethod;
-        public ulong UncompressedFileSize;
-        public ulong CompressedFileSize;
-        public uint DataBlockOffset;
     }
 }
