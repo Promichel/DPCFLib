@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using DynaStudios.DPCFLib.Pattern;
 
 namespace DynaStudios.DPCFLib.Solutions
@@ -6,6 +7,12 @@ namespace DynaStudios.DPCFLib.Solutions
     public class ProjectSolutionBuilder : IBuilder<ProjectSolution>
     {
         protected internal SolutionDescription Description { get; private set; }
+        protected internal List<ProjectFile> Files { get; private set; }
+
+        public ProjectSolutionBuilder()
+        {
+            Files = new List<ProjectFile>();
+        }
 
         public ProjectSolutionBuilder WithSolutionDescription(SolutionDescription description)
         {
@@ -25,6 +32,17 @@ namespace DynaStudios.DPCFLib.Solutions
         public ProjectSolution Build()
         {
             return new ProjectSolution(this);
+        }
+
+        public ProjectSolutionBuilder AddToSolution(ProjectFile projectFile)
+        {
+            if (projectFile == null) throw new ArgumentNullException("projectFile");
+            if(string.IsNullOrEmpty(projectFile.PhysicalFilepath)) throw new ArgumentNullException("projectFile", "Filepath is null or empty");
+            if(string.IsNullOrEmpty(projectFile.FileIdentifier)) throw new ArgumentNullException("projectFile", "File Identifier is null or empty");
+
+            Files.Add(projectFile);
+
+            return this;
         }
     }
 }

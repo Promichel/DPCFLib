@@ -53,6 +53,53 @@ namespace DPCFLibraryTest.Solution
         }
 
         [Test]
+        public void AddFile()
+        {
+            var description = GetValidSampleSolutionDescription();
+            var projectFile = new ProjectFile
+            {
+                FileIdentifier = "Tomato.jpg",
+                PhysicalFilepath = "Dummy"
+            };
+            var result = new ProjectSolutionBuilder()
+                .WithSolutionDescription(description)
+                .AddToSolution(projectFile)
+                .Build();
+
+            Assert.NotNull(result);
+            Assert.IsTrue(result.Files.Count == 1);
+        }
+
+        [Test]
+        public void AddFileMissingProperties()
+        {
+            var description = GetValidSampleSolutionDescription();
+
+            ProjectFile projectFile = null;
+            //Object is null
+            Assert.Throws<ArgumentNullException>(
+                () => new ProjectSolutionBuilder().WithSolutionDescription(description).AddToSolution(projectFile));
+
+            projectFile = new ProjectFile();
+            //Filepath is null or empty
+            Assert.Throws<ArgumentNullException>(
+                () => new ProjectSolutionBuilder().WithSolutionDescription(description).AddToSolution(projectFile));
+
+            //File Identifier is null or empty
+            projectFile.PhysicalFilepath = "DummyPath";
+            Assert.Throws<ArgumentNullException>(
+                () => new ProjectSolutionBuilder().WithSolutionDescription(description).AddToSolution(projectFile));
+
+            //Everything is set
+            projectFile.FileIdentifier = "Test";
+            var result =
+                new ProjectSolutionBuilder().WithSolutionDescription(description).AddToSolution(projectFile).Build();
+
+            Assert.NotNull(result);
+            Assert.IsTrue(result.Files.Count == 1);
+        }
+
+        [Test]
         public void BuildSolutionAndSerialize()
         {
             var description = GetValidSampleSolutionDescription();

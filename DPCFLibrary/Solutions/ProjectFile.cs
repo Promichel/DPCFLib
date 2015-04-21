@@ -14,5 +14,11 @@ namespace DynaStudios.DPCFLib.Solutions
         public string PhysicalFilepath { get; set; }
         [DataMember]
         public FileCompression Compression { get; set; }
+
+        public ProjectFile()
+        {
+            StructureIdentifier = String.Empty;
+            Compression = FileCompression.Uncompressed;
+        }
     }
 }

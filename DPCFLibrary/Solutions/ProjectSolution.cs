@@ -30,12 +30,13 @@ namespace DynaStudios.DPCFLib.Solutions
 
         protected ProjectSolution()
         {
-            Files = new List<ProjectFile>();
+            
         }
 
         public ProjectSolution(ProjectSolutionBuilder builder) : this()
         {
             Description = builder.Description;
+            Files = builder.Files;
         }
 
     }
