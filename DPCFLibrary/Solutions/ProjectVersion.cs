@@ -218,8 +218,6 @@ namespace DynaStudios.DPCFLib.Solutions
 
         #endregion
 
-        #region IComparable Members
-
         /// <summary>
         ///     Compares to.
         /// </summary>
@@ -229,7 +227,7 @@ namespace DynaStudios.DPCFLib.Solutions
         {
             if (version == null)
             {
-                return 1;
+                throw new ArgumentNullException("version");
             }
             if (!(version is ProjectVersion))
             {
@@ -271,7 +269,82 @@ namespace DynaStudios.DPCFLib.Solutions
             return -1;
         }
 
-        #endregion
+        /// <summary>
+        /// Operator ==s the specified v1.
+        /// </summary>
+        /// <param name="v1">V1.</param>
+        /// <param name="v2">V2.</param>
+        /// <returns></returns>
+        public static bool operator ==(ProjectVersion v1, ProjectVersion v2)
+        {
+            if (ReferenceEquals(v1, null))
+            {
+                return ReferenceEquals(v2, null);
+            }
+            return v1.Equals(v2);
+        }
+        /// <summary>
+        /// Operator &gt;s the specified v1.
+        /// </summary>
+        /// <param name="v1">V1.</param>
+        /// <param name="v2">V2.</param>
+        /// <returns></returns>
+        public static bool operator >(ProjectVersion v1, ProjectVersion v2)
+        {
+            if (v1 == null)
+            {
+                throw new ArgumentNullException("v1");
+            }
+            return (v2 < v1);
+        }
+        /// <summary>
+        /// Operator &gt;=s the specified v1.
+        /// </summary>
+        /// <param name="v1">V1.</param>
+        /// <param name="v2">V2.</param>
+        /// <returns></returns>
+        public static bool operator >=(ProjectVersion v1, ProjectVersion v2)
+        {
+            return (v2 <= v1);
+        }
+        /// <summary>
+        /// Operator !=s the specified v1.
+        /// </summary>
+        /// <param name="v1">V1.</param>
+        /// <param name="v2">V2.</param>
+        /// <returns></returns>
+        public static bool operator !=(ProjectVersion v1, ProjectVersion v2)
+        {
+            return !v1.Equals(v2);
+        }
+        /// <summary>
+        /// Operator &lt;s the specified v1.
+        /// </summary>
+        /// <param name="v1">V1.</param>
+        /// <param name="v2">V2.</param>
+        /// <returns></returns>
+        public static bool operator <(ProjectVersion v1, ProjectVersion v2)
+        {
+            if (v1 == null)
+            {
+                throw new ArgumentNullException("v1");
+            }
+            return (v1.CompareTo(v2) < 0);
+        }
+        /// <summary>
+        /// Operator &lt;=s the specified v1.
+        /// </summary>
+        /// <param name="v1">V1.</param>
+        /// <param name="v2">V2.</param>
+        /// <returns></returns>
+        public static bool operator <=(ProjectVersion v1, ProjectVersion v2)
+        {
+            if (v1 == null)
+            {
+                throw new ArgumentNullException("v1");
+            }
+            return (v1.CompareTo(v2) <= 0);
+        }
 
         /// <summary>
         ///     Equalss the specified obj.
@@ -319,6 +392,7 @@ namespace DynaStudios.DPCFLib.Solutions
             return ToString(4);
         }
 
+
         /// <summary>
         ///     Toes the string.
         /// </summary>
@@ -335,11 +409,20 @@ namespace DynaStudios.DPCFLib.Solutions
                 }
                 case 1:
                 {
+                    if (_major == 0)
+                    {
+                        throw new ArgumentException("Major Version is not set");
+                    }
                     return (_major.ToString());
                 }
                 case 2:
                 {
+                    if (_major == 0)
+                    {
+                        throw new ArgumentException("Major Version not set");
+                    }
                     return (_major + "." + _minor);
+
                 }
             }
             if (_build == -1)
