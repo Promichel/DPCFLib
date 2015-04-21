@@ -28,7 +28,7 @@ namespace DynaStudios.DPCFLib.Solutions
             private set { _files = value; }
         }
 
-        public ProjectSolution()
+        protected ProjectSolution()
         {
             Files = new List<ProjectFile>();
         }
