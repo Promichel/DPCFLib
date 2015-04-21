@@ -40,6 +40,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Format\DPCFFileHeader.cs" />
+    <Compile Include="Pattern\IBuilder.cs" />
+    <Compile Include="Solutions\ProjectSolutionBuilder.cs" />
+    <Compile Include="Solutions\ProjectSolution.cs" />
+    <Compile Include="Solutions\ReadableSerializer.cs" />
+    <Compile Include="Solutions\SolutionDescription.cs" />
     <Compile Include="Util\HashCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

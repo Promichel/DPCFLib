@@ -25,7 +25,7 @@ namespace DPCFLibraryTest
             Assert.IsTrue(hash.Equals("02C1E93316160F9B6AD6B7CC115186C1"));
         }
 
-        #region Methods to Load Testfiles
+        #region Methods to LoadFromFile Testfiles
 
         private byte[] LoadTestfileIntoArray()
         {

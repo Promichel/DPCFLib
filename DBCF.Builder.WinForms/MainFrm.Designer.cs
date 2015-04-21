@@ -77,7 +77,7 @@
             // 
             this.btnLoadSolution.Name = "btnLoadSolution";
             this.btnLoadSolution.Size = new System.Drawing.Size(159, 22);
-            this.btnLoadSolution.Text = "Load Solution ...";
+            this.btnLoadSolution.Text = "LoadFromFile Solution ...";
             // 
             // toolStripSeparator1
             // 
