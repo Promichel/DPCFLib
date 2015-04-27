@@ -11,6 +11,7 @@ The Library is in a early development state.
 
 ### Whats already working
 * Reading/Writing Solution Files for the DPCF Compiler
+* Compressing Files with LZMA (7zip)
 
 Thats not that much ;D So don't use it yet!
 
