@@ -46,6 +46,8 @@
   <ItemGroup>
     <Compile Include="Compression\LZMA\ICompressionHandler.cs" />
     <Compile Include="Compression\LZMA\LZMAHandler.cs" />
+    <Compile Include="DPCF\DPCFBuilder.cs" />
+    <Compile Include="Format\DPCFFile.cs" />
     <Compile Include="Format\DPCFFileHeader.cs" />
     <Compile Include="Format\DPCFHashedFileHeader.cs" />
     <Compile Include="Pattern\IBuilder.cs" />
