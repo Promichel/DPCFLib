@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SevenZipSharp">
+      <HintPath>..\packages\SevenZipSharp.0.64\lib\SevenZipSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -40,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Compression\LZMA\ICompressionHandler.cs" />
+    <Compile Include="Compression\LZMA\LZMAHandler.cs" />
     <Compile Include="Format\DPCFFileHeader.cs" />
     <Compile Include="Format\DPCFHashedFileHeader.cs" />
     <Compile Include="Pattern\IBuilder.cs" />
@@ -52,6 +57,9 @@
     <Compile Include="Solutions\SolutionDescription.cs" />
     <Compile Include="Util\HashCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
