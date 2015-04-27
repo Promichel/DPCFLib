@@ -3,8 +3,10 @@
 namespace DynaStudios.DPCFLib.Solutions
 {
     [Serializable]
-    public enum FileCompression
+    public enum FileCompression : byte
     {
-        Uncompressed, LZMA
+        Uncompressed = 0x00, 
+        LZMA = 0x01, 
+        Custom = 0x02
     }
 }
