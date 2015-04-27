@@ -44,7 +44,8 @@ namespace DPCFLibraryTest.CompressionTests
                     var output = new FileStream(Path.Combine("TestFiles", "Document.lzma"), FileMode.Create,
                         FileAccess.Write))
                 {
-                    handler.CompressFile(input, output);
+                    var compressedLenth = handler.CompressFile(input, output);
+                    Assert.NotNull(compressedLenth);
                 }
             }
 
@@ -64,7 +65,8 @@ namespace DPCFLibraryTest.CompressionTests
                     var output = new FileStream(Path.Combine("TestFiles", "Document_unz.txt"), FileMode.Create,
                         FileAccess.Write))
                 {
-                    handler.DecompressFile(input, output);
+                    var decompressedSize = handler.DecompressFile(input, output);
+                    Assert.NotNull(decompressedSize);
                 }
             }
 
