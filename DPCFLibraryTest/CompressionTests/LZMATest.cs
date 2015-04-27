@@ -36,7 +36,7 @@ namespace DPCFLibraryTest.CompressionTests
             Assert.IsTrue(File.Exists(Path.Combine("TestFiles", "Document.txt")));
 
             //Check source file md5 hash
-            //Assert.IsTrue(_hashCalculator.Calculate(LoadTestfileIntoArray()).Equals("a837d19bbbc7b115ccf217f2a303a37a"));
+            Assert.IsTrue(_hashCalculator.Calculate(LoadTestfileIntoArray()).Equals("A837D19BBBC7B115CCF217F2A303A37A"));
 
             using (var input = new FileStream(Path.Combine("TestFiles", "Document.txt"), FileMode.Open))
             {
@@ -49,6 +49,29 @@ namespace DPCFLibraryTest.CompressionTests
             }
 
             Assert.IsTrue(File.Exists(Path.Combine("TestFiles", "Document.lzma")));
+        }
+
+        [Test]
+        public void TestUncompress()
+        {
+            var handler = new LZMAHandler();
+
+            TestCompress();
+
+            using (var input = new FileStream(Path.Combine("TestFiles", "Document.lzma"), FileMode.Open))
+            {
+                using (
+                    var output = new FileStream(Path.Combine("TestFiles", "Document_unz.txt"), FileMode.Create,
+                        FileAccess.Write))
+                {
+                    handler.DecompressFile(input, output);
+                }
+            }
+
+            TextReader txtReader = new StreamReader(Path.Combine("TestFiles", "Document_unz.txt"));
+            var text = txtReader.ReadLine();
+            Assert.NotNull(text);
+            Assert.IsTrue(text.Equals("I'm a sample Text"));
         }
     }
 }
