@@ -14,6 +14,7 @@ namespace DynaStudios.DPCFLib.Solutions
         public string PhysicalFilepath { get; set; }
         [DataMember]
         public FileCompression Compression { get; set; }
+        public string CustomCompressionName { get; set; }
 
         public ProjectFile()
         {

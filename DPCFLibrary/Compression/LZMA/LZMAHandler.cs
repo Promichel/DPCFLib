@@ -6,9 +6,11 @@ namespace DynaStudios.DPCFLib.Compression.LZMA
 {
     public class LZMAHandler : ICompressionHandler
     {
-        public void CompressFile(FileStream inFile, FileStream outFile)
+        public long CompressFile(FileStream inFile, FileStream outFile)
         {
             var coder = new Encoder();
+            long result;
+
             using (inFile)
             {
                 using (outFile)
@@ -22,14 +24,18 @@ namespace DynaStudios.DPCFLib.Compression.LZMA
                     // Encode the file.
                     coder.Code(inFile, outFile, inFile.Length, -1, null);
                     outFile.Flush();
+                    result = outFile.Length;
                     outFile.Close();
                 }
             }
+
+            return result;
         }
 
-        public void DecompressFile(FileStream inFile, FileStream outFile)
+        public long DecompressFile(FileStream inFile, FileStream outFile)
         {
             var coder = new Decoder();
+            long result;
 
             using (inFile)
             {
@@ -47,9 +53,12 @@ namespace DynaStudios.DPCFLib.Compression.LZMA
                     coder.SetDecoderProperties(properties);
                     coder.Code(inFile, outFile, inFile.Length, fileLength, null);
                     outFile.Flush();
+                    result = outFile.Length;
                     outFile.Close();
                 }
             }
+
+            return result;
         }
     }
 }
