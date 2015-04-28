@@ -8,6 +8,7 @@ namespace DynaStudios.DPCFLib.Solutions
     {
         protected internal SolutionDescription Description { get; private set; }
         protected internal List<ProjectFile> Files { get; private set; }
+        protected internal List<string> ValueDictionary { get; private set; } 
 
         public ProjectSolutionBuilder()
         {
@@ -26,6 +27,12 @@ namespace DynaStudios.DPCFLib.Solutions
 
             Description = description;
 
+            return this;
+        }
+
+        public ProjectSolutionBuilder SetValueDictionary(List<string> valueDictionary)
+        {
+            ValueDictionary = valueDictionary;
             return this;
         }
 
@@ -56,6 +63,15 @@ namespace DynaStudios.DPCFLib.Solutions
 
         public ProjectSolution Build()
         {
+            if (Description == null)
+            {
+                throw new NullReferenceException("Description is null");
+            }
+            if (Files.Count > 0 && ValueDictionary == null)
+            {
+                throw new NullReferenceException("ValueDictionary is null");
+            }
+
             return new ProjectSolution(this);
         }
     }

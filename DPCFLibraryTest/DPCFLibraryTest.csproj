@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="CompressionTests\LZMATest.cs" />
     <Compile Include="HashCalculatorTest.cs" />
+    <Compile Include="Header\Writer\HeaderWriterTest.cs" />
     <Compile Include="ProjectVersionTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadableSerializerTests\ReadableSerializerTest.cs" />

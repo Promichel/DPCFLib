@@ -13,7 +13,7 @@
         public uint[] IndexDictionaryLength; //IndexDictionarySize * 4 bytes
         public byte[][] IndexDictionary; //Index DictionarySize * IndexDictionaryLenght[index] * 
 
-        public ulong FileCreation; //8 bytes
-        public ulong FileChanged; //8 bytes
+        public long FileCreation; //8 bytes
+        public long FileChanged; //8 bytes
     }
 }

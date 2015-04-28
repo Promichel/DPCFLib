@@ -14,6 +14,8 @@ namespace DynaStudios.DPCFLib.Solutions
         [DataMember]
         private List<ProjectFile> _files;
 
+        private List<string> _valueDictionary;
+            
         [IgnoreDataMember]
         public SolutionDescription Description
         {
@@ -28,6 +30,13 @@ namespace DynaStudios.DPCFLib.Solutions
             private set { _files = value; }
         }
 
+        [IgnoreDataMember]
+        public List<string> ValueDictionary
+        {
+            get { return _valueDictionary; }
+            private set { _valueDictionary = value; }
+        }
+
         protected ProjectSolution()
         {
             
@@ -37,6 +46,7 @@ namespace DynaStudios.DPCFLib.Solutions
         {
             Description = builder.Description;
             Files = builder.Files;
+            ValueDictionary = builder.ValueDictionary;
         }
 
     }

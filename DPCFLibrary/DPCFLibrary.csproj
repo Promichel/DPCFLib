@@ -50,6 +50,10 @@
     <Compile Include="Format\DPCFFile.cs" />
     <Compile Include="Format\DPCFFileHeader.cs" />
     <Compile Include="Format\DPCFHashedFileHeader.cs" />
+    <Compile Include="Format\Reader\DPCFHeaderReader.cs" />
+    <Compile Include="Format\Writer\DPCFHeaderWriter.cs" />
+    <Compile Include="Format\Writer\AbstractByteWriter.cs" />
+    <Compile Include="Format\Writer\IWriter.cs" />
     <Compile Include="Pattern\IBuilder.cs" />
     <Compile Include="Solutions\FileCompression.cs" />
     <Compile Include="Solutions\ProjectFile.cs" />
@@ -61,6 +65,7 @@
     <Compile Include="Util\HashCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

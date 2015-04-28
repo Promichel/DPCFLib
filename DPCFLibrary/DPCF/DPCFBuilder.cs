@@ -8,6 +8,11 @@ namespace DynaStudios.DPCFLib.DPCF
     {
         public DPCFBuilder LoadFromSolution(ProjectSolution solution)
         {
+            var description = solution.Description;
+            var files = solution.Files;
+
+
+
             return this;
         }
 
