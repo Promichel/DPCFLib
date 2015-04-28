@@ -2,19 +2,18 @@
 {
     public struct DPCFFileHeader
     {
-        public short Version;
+        public short Version; //2 bytes
 
-        public uint HashedFileHeaderSize;
-        public DPCFHashedFileHeader[] HashedFileHeaders;
+        public uint HashedFileHeaderSize; //4 bytes
+        public DPCFHashedFileHeader[] HashedFileHeaders; //HashedFileHeaderSize * 46 bytes
 
-        public ushort HFHHashLength;
-        public byte[] HFHHash;
+        public byte[] HFHHash; //16 bytes
 
-        public uint IndexDictionarySize;
-        public uint[] IndexDictionaryLength;
-        public byte[][] IndexDictionary;
+        public uint IndexDictionarySize; //4 bytes
+        public uint[] IndexDictionaryLength; //IndexDictionarySize * 4 bytes
+        public byte[][] IndexDictionary; //Index DictionarySize * IndexDictionaryLenght[index] * 
 
-        public ulong FileCreation;
-        public ulong FileChanged;
+        public ulong FileCreation; //8 bytes
+        public ulong FileChanged; //8 bytes
     }
 }

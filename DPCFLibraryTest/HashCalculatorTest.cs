@@ -22,6 +22,9 @@ namespace DPCFLibraryTest
             Assert.IsNotEmpty(testString);
 
             string hash = _hashCalculator.Calculate(testString);
+            var calculateAsByte = _hashCalculator.CalculateAsByte(testString);
+            string hashTwo = HashCalculator.ProvideMd5ByteArrayAsString(calculateAsByte);
+            Assert.IsTrue(hash.Equals(hashTwo));
             Assert.IsTrue(hash.Equals("0DE471A9016AD61D89970490DA698AC3"));
         }
     }

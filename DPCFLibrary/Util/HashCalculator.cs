@@ -9,11 +9,19 @@ namespace DynaStudios.DPCFLib.Util
         {
             using (var md5 = MD5.Create())
             {
-                return ProvideMd5AsString(md5.ComputeHash(array));
+                return ProvideMd5ByteArrayAsString(md5.ComputeHash(array));
             }
         }
 
-        private string ProvideMd5AsString(byte[] computedHash)
+        public byte[] CalculateAsByte(byte[] array)
+        {
+            using (var md5 = MD5.Create())
+            {
+                return md5.ComputeHash(array);
+            }
+        }
+
+        public static string ProvideMd5ByteArrayAsString(byte[] computedHash)
         {
             return BitConverter.ToString(computedHash).Replace("-", "");
         }

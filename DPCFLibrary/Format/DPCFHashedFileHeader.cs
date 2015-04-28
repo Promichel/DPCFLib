@@ -2,12 +2,14 @@
 {
     public struct DPCFHashedFileHeader
     {
-        public uint Identifier;
-        public uint LocationIdentifier;
-        public byte[] FileHash;
-        public short CompressionMethod;
-        public ulong UncompressedFileSize;
-        public ulong CompressedFileSize;
-        public uint DataBlockOffset;
+        public uint Identifier; //4 bytes
+        public uint LocationIdentifier; //4bytes
+        public byte[] FileHash; //FileHashLength (fixed 16bytes)
+        public short CompressionMethod; //2 bytes
+        public ulong UncompressedFileSize; //8 bytes
+        public ulong CompressedFileSize; //8 bytes
+        public uint DataBlockOffset; //4 bytes
+
+        //46 bytes fixed
     }
 }
