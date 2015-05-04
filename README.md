@@ -11,6 +11,7 @@ The Library is in a early development state.
   <img alt="Coverity Scan Build Status"
        src="https://scan.coverity.com/projects/5022/badge.svg"/>
 </a>
+[![Stories in Ready](https://badge.waffle.io/DynaStudios/DPCFLib.png?label=ready&title=Ready)](https://waffle.io/DynaStudios/DPCFLib)
 
 ### Whats already working
 * Reading/Writing Solution Files for the DPCF Compiler
