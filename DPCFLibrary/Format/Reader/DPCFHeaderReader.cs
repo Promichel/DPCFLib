@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Runtime.Remoting.Messaging;
+﻿using System.IO;
 using DynaStudios.DPCFLib.Solutions;
 
 namespace DynaStudios.DPCFLib.Format.Reader
