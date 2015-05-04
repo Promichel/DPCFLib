@@ -1,25 +1,53 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using DynaStudios.DPCFLib.Util;
 
 namespace DynaStudios.DPCFLib.Format.Writer
 {
-    public class DPCFHeaderWriter : AbstractByteWriter, IWriter<DPCFFileHeader>
+    public class DPCFHeaderWriter : IWriter<DPCFFileHeader>
     {
-        public DPCFHeaderWriter(Stream stream) : base(stream)
+        private readonly EndianBinaryWriter _writer;
+
+        public DPCFHeaderWriter(Stream stream)
         {
-            
+            EndianBitConverter bitConverter;
+            if (BitConverter.IsLittleEndian)
+            {
+                bitConverter = new LittleEndianBitConverter();
+            }
+            else
+            {
+                bitConverter = new BigEndianBitConverter();
+            }
+
+            _writer = new EndianBinaryWriter(bitConverter, stream);
         }
 
         public void Write(DPCFFileHeader header)
         {
-            Write(header.Version);
-            Write(header.HashedFileHeaderSize);
-            Write(header.HashedFileHeaders);
-            Write(header.HFHHash);
-            Write(header.IndexDictionarySize);
+            _writer.Write(header.Version);
+            _writer.Write(header.HashedFileHeaderSize);
+            WriterFileHeader(header.HashedFileHeaders);
+            _writer.Write(header.HFHHash);
+            _writer.Write(header.IndexDictionarySize);
             Write(header.IndexDictionaryLength);
             Write(header.IndexDictionary);
-            Write(header.FileCreation);
-            Write(header.FileChanged);
+            _writer.Write(header.FileCreation);
+            _writer.Write(header.FileChanged);
+        }
+
+        private void WriterFileHeader(DPCFHashedFileHeader[] hashedFileHeaders)
+        {
+            foreach (var fileHeader in hashedFileHeaders)
+            {
+                _writer.Write(fileHeader.Identifier);
+                _writer.Write(fileHeader.LocationIdentifier);
+                _writer.Write(fileHeader.FileHash);
+                _writer.Write((short)fileHeader.CompressionMethod);
+                _writer.Write(fileHeader.UncompressedFileSize);
+                _writer.Write(fileHeader.CompressedFileSize);
+                _writer.Write(fileHeader.DataBlockOffset);
+            }
         }
 
         private void Write(byte[][] array)
@@ -28,7 +56,7 @@ namespace DynaStudios.DPCFLib.Format.Writer
             {
                 foreach (var b in bytes)
                 {
-                    Write(b);
+                    _writer.Write(b);
                 }
             }
         }
@@ -37,21 +65,7 @@ namespace DynaStudios.DPCFLib.Format.Writer
         {
             foreach (uint u in array)
             {
-                Write(u);
-            }
-        }
-
-        private void Write(DPCFHashedFileHeader[] hashedFileHeaders)
-        {
-            foreach (var fileHeader in hashedFileHeaders)
-            {
-                Write(fileHeader.Identifier);
-                Write(fileHeader.LocationIdentifier);
-                Write(fileHeader.FileHash);
-                Write((short)fileHeader.CompressionMethod);
-                Write(fileHeader.UncompressedFileSize);
-                Write(fileHeader.CompressedFileSize);
-                Write(fileHeader.DataBlockOffset);
+                _writer.Write(u);
             }
         }
     }

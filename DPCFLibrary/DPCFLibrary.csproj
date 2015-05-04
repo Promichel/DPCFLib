@@ -51,8 +51,8 @@
     <Compile Include="Format\DPCFFileHeader.cs" />
     <Compile Include="Format\DPCFHashedFileHeader.cs" />
     <Compile Include="Format\Reader\DPCFHeaderReader.cs" />
+    <Compile Include="Format\Reader\IReader.cs" />
     <Compile Include="Format\Writer\DPCFHeaderWriter.cs" />
-    <Compile Include="Format\Writer\AbstractByteWriter.cs" />
     <Compile Include="Format\Writer\IWriter.cs" />
     <Compile Include="Pattern\IBuilder.cs" />
     <Compile Include="Solutions\FileCompression.cs" />
@@ -62,8 +62,14 @@
     <Compile Include="Solutions\ProjectVersion.cs" />
     <Compile Include="Solutions\ReadableSerializer.cs" />
     <Compile Include="Solutions\SolutionDescription.cs" />
+    <Compile Include="Util\BigEndianBitConverter.cs" />
+    <Compile Include="Util\EndianBinaryReader.cs" />
+    <Compile Include="Util\EndianBinaryWriter.cs" />
+    <Compile Include="Util\EndianBitConverter.cs" />
+    <Compile Include="Util\Endianness.cs" />
     <Compile Include="Util\HashCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\LittleEndianBitConverter.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

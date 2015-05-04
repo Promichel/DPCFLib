@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using DynaStudios.DPCFLib.Solutions;
 using NUnit.Framework;
@@ -11,9 +12,7 @@ namespace DPCFLibraryTest.Solution
         [Test]
         public void BuildSimpleSolution()
         {
-            var result = new ProjectSolutionBuilder().Build();
-
-            Assert.NotNull(result);
+            Assert.Throws<NullReferenceException>(() => new ProjectSolutionBuilder().Build());
         }
 
         [Test]
@@ -61,8 +60,13 @@ namespace DPCFLibraryTest.Solution
                 FileIdentifier = "Tomato.jpg",
                 PhysicalFilepath = "Dummy"
             };
+
+            //Value Dictionary need to be set after you added files
+            var valueDictionary = new List<string>();
+
             var result = new ProjectSolutionBuilder()
                 .WithSolutionDescription(description)
+                .SetValueDictionary(valueDictionary)
                 .AddToSolution(projectFile)
                 .Build();
 
@@ -71,29 +75,48 @@ namespace DPCFLibraryTest.Solution
         }
 
         [Test]
+        public void AddFilesWithMissingValueCollection()
+        {
+            var description = GetValidSampleSolutionDescription();
+            var projectFile = new ProjectFile
+            {
+                FileIdentifier = "Tomato.jpg",
+                PhysicalFilepath = "Dummy"
+            };
+
+            Assert.Throws<NullReferenceException>(
+                () =>
+                    new ProjectSolutionBuilder().WithSolutionDescription(description).AddToSolution(projectFile).Build());
+        }
+
+        [Test]
         public void AddFileMissingProperties()
         {
             var description = GetValidSampleSolutionDescription();
+            var valueDictionary = new List<string>();
 
             ProjectFile projectFile = null;
+
+
+
             //Object is null
             Assert.Throws<ArgumentNullException>(
-                () => new ProjectSolutionBuilder().WithSolutionDescription(description).AddToSolution(projectFile));
+                () => new ProjectSolutionBuilder().WithSolutionDescription(description).SetValueDictionary(valueDictionary).AddToSolution(projectFile));
 
             projectFile = new ProjectFile();
             //Filepath is null or empty
             Assert.Throws<ArgumentNullException>(
-                () => new ProjectSolutionBuilder().WithSolutionDescription(description).AddToSolution(projectFile));
+                () => new ProjectSolutionBuilder().WithSolutionDescription(description).SetValueDictionary(valueDictionary).AddToSolution(projectFile));
 
             //File Identifier is null or empty
             projectFile.PhysicalFilepath = "DummyPath";
             Assert.Throws<ArgumentNullException>(
-                () => new ProjectSolutionBuilder().WithSolutionDescription(description).AddToSolution(projectFile));
+                () => new ProjectSolutionBuilder().WithSolutionDescription(description).SetValueDictionary(valueDictionary).AddToSolution(projectFile));
 
             //Everything is set
             projectFile.FileIdentifier = "Test";
             var result =
-                new ProjectSolutionBuilder().WithSolutionDescription(description).AddToSolution(projectFile).Build();
+                new ProjectSolutionBuilder().WithSolutionDescription(description).SetValueDictionary(valueDictionary).AddToSolution(projectFile).Build();
 
             Assert.NotNull(result);
             Assert.IsTrue(result.Files.Count == 1);
@@ -103,6 +126,7 @@ namespace DPCFLibraryTest.Solution
         public void AddMultipleFilesByArray()
         {
             var description = GetValidSampleSolutionDescription();
+            var valueDictionary = new List<string>();
 
             ProjectFile[] files = {
                 new ProjectFile {FileIdentifier = "Test", PhysicalFilepath = "DummyPath"},
@@ -111,6 +135,7 @@ namespace DPCFLibraryTest.Solution
 
             var result = new ProjectSolutionBuilder()
                 .WithSolutionDescription(description)
+                .SetValueDictionary(valueDictionary)
                 .AddToSolution(files)
                 .Build();
 

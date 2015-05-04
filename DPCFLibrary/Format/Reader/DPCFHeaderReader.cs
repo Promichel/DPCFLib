@@ -1,13 +1,27 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using DynaStudios.DPCFLib.Solutions;
+using DynaStudios.DPCFLib.Util;
 
 namespace DynaStudios.DPCFLib.Format.Reader
 {
-    public class DPCFHeaderReader : AbstractByteReader, IReader<DPCFFileHeader>
+    public class DPCFHeaderReader : IReader<DPCFFileHeader>
     {
-        public DPCFHeaderReader(FileStream fileHeaderBytes) : base(fileHeaderBytes)
+        private EndianBinaryReader _reader;
+
+        public DPCFHeaderReader(FileStream fileHeaderBytes)
         {
-            
+            EndianBitConverter bitConverter;
+            if (BitConverter.IsLittleEndian)
+            {
+                bitConverter = new LittleEndianBitConverter();
+            }
+            else
+            {
+                bitConverter = new BigEndianBitConverter();
+            }
+
+            _reader = new EndianBinaryReader(bitConverter, fileHeaderBytes);
         }
 
         public void InitReader(byte[] fileHeaderBytes)
@@ -20,15 +34,15 @@ namespace DynaStudios.DPCFLib.Format.Reader
 
             DPCFFileHeader header = new DPCFFileHeader();
 
-            header.Version = ReadShort();
-            header.HashedFileHeaderSize = ReadUInt();
+            header.Version = _reader.ReadInt16();
+            header.HashedFileHeaderSize = _reader.ReadUInt32();
             header.HashedFileHeaders = ReadHashedFileHeaders(header.HashedFileHeaderSize);
-            header.HFHHash = ReadBytes(16);
-            header.IndexDictionarySize = ReadUInt();
+            header.HFHHash = _reader.ReadBytes(16);
+            header.IndexDictionarySize = _reader.ReadUInt32();
             header.IndexDictionaryLength = ReadIndexLength(header.IndexDictionarySize);
             header.IndexDictionary = ReadDictionary(header.IndexDictionaryLength);
-            header.FileCreation = ReadLong();
-            header.FileChanged = ReadLong();
+            header.FileCreation = _reader.ReadInt64();
+            header.FileChanged = _reader.ReadInt64();
 
             return header;
         }
@@ -41,7 +55,7 @@ namespace DynaStudios.DPCFLib.Format.Reader
                 result[i] = new byte[indexDictionaryLength[i]];
                 for (int j = 0; j < indexDictionaryLength[i]; j++)
                 {
-                    result[i][j] = ReadByte();
+                    result[i][j] = _reader.ReadByte();
                 }
             }
 
@@ -53,7 +67,7 @@ namespace DynaStudios.DPCFLib.Format.Reader
             uint[] result = new uint[size];
             for (int i = 0; i < size; i++)
             {
-                result[i] = ReadUInt();
+                result[i] = _reader.ReadUInt32();
             }
             return result;
         }
@@ -73,77 +87,15 @@ namespace DynaStudios.DPCFLib.Format.Reader
         private DPCFHashedFileHeader ReadHashedFileHeader()
         {
             var result = new DPCFHashedFileHeader();
-            result.Identifier = ReadUInt();
-            result.LocationIdentifier = ReadUInt();
-            result.FileHash = ReadBytes(16);
-            result.CompressionMethod = (FileCompression)ReadShort();
-            result.UncompressedFileSize = ReadULong();
-            result.CompressedFileSize = ReadULong();
-            result.DataBlockOffset = ReadUInt();
+            result.Identifier = _reader.ReadUInt32();
+            result.LocationIdentifier = _reader.ReadUInt32();
+            result.FileHash = _reader.ReadBytes(16);
+            result.CompressionMethod = (FileCompression)_reader.ReadInt16();
+            result.UncompressedFileSize = _reader.ReadUInt64();
+            result.CompressedFileSize = _reader.ReadUInt64();
+            result.DataBlockOffset = _reader.ReadUInt32();
 
             return result;
         }
-    }
-
-    public abstract class AbstractByteReader
-    {
-        public FileStream FileHeader { get; private set; }
-        public int CurrentIndex { get; private set; }
-
-        protected AbstractByteReader(FileStream fileHeaderBytes)
-        {
-            FileHeader = fileHeaderBytes;
-            CurrentIndex = -1;
-        }
-
-        public short ReadShort()
-        {
-            return unchecked((short) ((ReadByte() << 8) | ReadByte()));
-        }
-
-        public byte ReadByte()
-        {
-            var b = FileHeader.ReadByte();
-            return (byte)b;
-        }
-
-        public int ReadInt()
-        {
-            return unchecked((ReadByte() << 24) | (ReadByte() << 16) | (ReadByte() << 8) | ReadByte());
-        }
-
-        public uint ReadUInt()
-        {
-            return (uint) unchecked((ReadByte() << 24) | (ReadByte() << 16) | (ReadByte() << 8) | ReadByte());
-        }
-
-        public long ReadLong()
-        {
-            return unchecked((ReadByte() << 56) | (ReadByte() << 48) | (ReadByte() << 40) | (ReadByte() << 32)
-                             | (ReadByte() << 24) | (ReadByte() << 16) | (ReadByte() << 8) | ReadByte());
-        }
-
-        public ulong ReadULong()
-        {
-            return (ulong) unchecked((ReadByte() << 56) | (ReadByte() << 48) | (ReadByte() << 40) | (ReadByte() << 32)
-                                     | (ReadByte() << 24) | (ReadByte() << 16) | (ReadByte() << 8) | ReadByte());
-        }
-
-        protected byte[] ReadBytes(int size)
-        {
-            var result = new byte[size];
-
-            for (int i = 0; i < size; i++)
-            {
-                result[i] = (byte) FileHeader.ReadByte();
-            }
-
-            return result;
-        }
-    }
-
-    public interface IReader<out T>
-    {
-        T ReadHeader();
     }
 }

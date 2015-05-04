@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompressionTests\LZMATest.cs" />
+    <Compile Include="EndianBinaryReaderTest.cs" />
     <Compile Include="HashCalculatorTest.cs" />
     <Compile Include="Header\Writer\HeaderWriterTest.cs" />
     <Compile Include="ProjectVersionTest.cs" />
