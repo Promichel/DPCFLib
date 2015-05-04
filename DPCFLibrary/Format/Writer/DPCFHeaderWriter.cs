@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using DynaStudios.DPCFLib.Util;
 
 namespace DynaStudios.DPCFLib.Format.Writer
@@ -10,17 +9,7 @@ namespace DynaStudios.DPCFLib.Format.Writer
 
         public DPCFHeaderWriter(Stream stream)
         {
-            EndianBitConverter bitConverter;
-            if (BitConverter.IsLittleEndian)
-            {
-                bitConverter = new LittleEndianBitConverter();
-            }
-            else
-            {
-                bitConverter = new BigEndianBitConverter();
-            }
-
-            _writer = new EndianBinaryWriter(bitConverter, stream);
+            _writer = new EndianBinaryWriter(new LittleEndianBitConverter(), stream);
         }
 
         public void Write(DPCFFileHeader header)

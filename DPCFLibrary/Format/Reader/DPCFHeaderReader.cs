@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using DynaStudios.DPCFLib.Solutions;
 using DynaStudios.DPCFLib.Util;
 
@@ -7,21 +6,11 @@ namespace DynaStudios.DPCFLib.Format.Reader
 {
     public class DPCFHeaderReader : IReader<DPCFFileHeader>
     {
-        private EndianBinaryReader _reader;
+        private readonly EndianBinaryReader _reader;
 
         public DPCFHeaderReader(FileStream fileHeaderBytes)
         {
-            EndianBitConverter bitConverter;
-            if (BitConverter.IsLittleEndian)
-            {
-                bitConverter = new LittleEndianBitConverter();
-            }
-            else
-            {
-                bitConverter = new BigEndianBitConverter();
-            }
-
-            _reader = new EndianBinaryReader(bitConverter, fileHeaderBytes);
+            _reader = new EndianBinaryReader(new LittleEndianBitConverter(), fileHeaderBytes);
         }
 
         public void InitReader(byte[] fileHeaderBytes)
