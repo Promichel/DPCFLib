@@ -120,6 +120,8 @@ namespace DPCFLibraryTest.Header.Writer
 
             var hashCalculator = new HashCalculator();
             var testHash = hashCalculator.Calculate(Encoding.UTF8.GetBytes("Test1"));
+
+            Assert.IsTrue(creation.Equals(new DateTime(2015, 12, 11)));
             Assert.IsTrue(HashCalculator.ProvideMd5ByteArrayAsString(fileHeader.FileHash).Equals(testHash));
             Assert.IsTrue(fileHeader.Identifier == 1);
             Assert.IsTrue(fileHeader.DataBlockOffset == 111);
